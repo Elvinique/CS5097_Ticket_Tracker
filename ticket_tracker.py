@@ -6,6 +6,7 @@ def display_menu():
     Parameters: none.
     Returns: None.
     """
+    # Why the loop only ends on option 7
     print('''
 --- Event Ticket Sales Tracker ---
 1. Record Sale
@@ -21,11 +22,9 @@ def display_menu():
 def add_record(current_records, record_type):
     """Prompt for record details and to append a new record.
 
-    Parameters:
-        current_records (list): the list of record dictionaries to append to.
-        record_type (str): either "Sale" or "Refund".
-    Returns:
-        None.
+    Parameters: current_records (list): the list of record dictionaries to append to.
+                record_type (str): either "Sale" or "Refund".
+    Returns: None.
     """
     amount_text = input(f"Enter {record_type.lower()} amount: ").strip()
 
@@ -34,6 +33,7 @@ def add_record(current_records, record_type):
     except ValueError:
         print("Invalid amount. Please enter a positive number.")
         return
+    # Why the second check also catches nan
     if not amount > 0:
         print("Invalid amount. Please enter a positive number.")
         return
@@ -127,6 +127,7 @@ def calculate_summary(records):
     total_refunds = 0.0
     sales_count = 0
 
+    # Why refunds are added to their own total rather than subtracted from sales
     for record in records:
         if record["type"] == "Sale":
             total_sales += record["amount"]
@@ -172,7 +173,7 @@ def print_summary_by_ticket_type(records):
     for record in records:
         ticket_type = record["ticket_type"]
         if ticket_type not in net_by_type:
-            net_by_type[ticket_type] = 0.0
+            net_by_type[ticket_type] = 0.0  # Why a ticket type starts at 0.0 the first time it is seen
 
         if record["type"] == "Sale":
             net_by_type[ticket_type] += record["amount"]
@@ -189,6 +190,11 @@ def print_summary_by_ticket_type(records):
 
 
 def main():
+    """Print the main menu
+
+    Parameters: none
+    returns: none
+    """
     while True:
         display_menu()
         choice = input("Please enter your choice: ").strip()
