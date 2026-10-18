@@ -1,12 +1,12 @@
 records = []
 
 def display_menu():
-    """ Runs the main to display the menu loop until Exit.
+    """ Prints the main menu.
 
     Parameters: none.
     Returns: None.
     """
-    # Why the loop only ends on option 7
+    # The loop ends on option 7
     print('''
 --- Event Ticket Sales Tracker ---
 1. Record Sale
@@ -20,7 +20,7 @@ def display_menu():
 
 
 def add_record(current_records, record_type):
-    """Prompt for record details and to append a new record.
+    """It prompts for the details and appends a record if they are valid.
 
     Parameters: current_records (list): the list of record dictionaries to append to.
                 record_type (str): either "Sale" or "Refund".
@@ -33,7 +33,7 @@ def add_record(current_records, record_type):
     except ValueError:
         print("Invalid amount. Please enter a positive number.")
         return
-    # Why the second check also catches nan
+    # This second check rejects negative or nan values
     if not amount > 0:
         print("Invalid amount. Please enter a positive number.")
         return
@@ -59,10 +59,8 @@ def add_record(current_records, record_type):
 def list_records(records):
     """Print all records.
 
-    Parameters:
-        records (list): of records.
-    Returns:
-        None.
+    Parameters: records (list): it is a list of record dictionaries.
+    Returns: None.
     """
     if len(records) == 0:
         print("No records found.")
@@ -127,7 +125,7 @@ def calculate_summary(records):
     total_refunds = 0.0
     sales_count = 0
 
-    # Why refunds are added to their own total rather than subtracted from sales
+    # The refunds are added to their own total rather than subtracted from sales
     for record in records:
         if record["type"] == "Sale":
             total_sales += record["amount"]
@@ -173,7 +171,7 @@ def print_summary_by_ticket_type(records):
     for record in records:
         ticket_type = record["ticket_type"]
         if ticket_type not in net_by_type:
-            net_by_type[ticket_type] = 0.0  # Why a ticket type starts at 0.0 the first time it is seen
+            net_by_type[ticket_type] = 0.0  # The ticket type starts at 0.0 the first time it is seen
 
         if record["type"] == "Sale":
             net_by_type[ticket_type] += record["amount"]
@@ -190,10 +188,10 @@ def print_summary_by_ticket_type(records):
 
 
 def main():
-    """Print the main menu
+    """Show the menu, read the choice, call the matching function and stop when the user choose Exit.
 
-    Parameters: none
-    returns: none
+    Parameters: None
+    Returns: None
     """
     while True:
         display_menu()
