@@ -1,7 +1,7 @@
 records = []
 
 def display_menu():
-    """Print the main menu.
+    """ Runs the main to display the menu loop until Exit.
 
     Parameters: none.
     Returns: None.
@@ -32,6 +32,9 @@ def add_record(current_records, record_type):
     try:
         amount = float(amount_text)
     except ValueError:
+        print("Invalid amount. Please enter a positive number.")
+        return
+    if not amount > 0:
         print("Invalid amount. Please enter a positive number.")
         return
 
